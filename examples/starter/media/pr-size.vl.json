@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 560, "height": 300,
+  "data": { "values": [
+    {"size": "< 50 lines", "hours": 3},
+    {"size": "50–200",     "hours": 9},
+    {"size": "200–500",    "hours": 22},
+    {"size": "> 500",      "hours": 51}
+  ]},
+  "mark": {"type": "bar", "cornerRadiusTopLeft": 4, "cornerRadiusTopRight": 4},
+  "encoding": {
+    "x": {"field": "size", "type": "ordinal", "sort": null, "axis": {"labelAngle": 0, "title": "Diff size"}},
+    "y": {"field": "hours", "type": "quantitative", "title": "Median hours to merge"},
+    "color": {"value": "#019546"}
+  },
+  "config": {
+    "font": "Tahoma, Verdana, sans-serif",
+    "axis": {"labelFontSize": 16, "titleFontSize": 18, "labelColor": "#282828", "titleColor": "#282828"},
+    "view": {"stroke": null}
+  }
+}

@@ -1,0 +1,9 @@
+{
+  // Preview the example decks in this repo with the real theme.
+  // In a decks repo with the skill at .claude/skills/inno-marp, use
+  // "./.claude/skills/inno-marp/themes/innopolis.css" instead.
+  "markdown.marp.themes": [
+    "./themes/innopolis.css"
+  ],
+  "markdown.marp.html": "all"
+}

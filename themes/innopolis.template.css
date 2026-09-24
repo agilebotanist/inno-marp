@@ -1,0 +1,521 @@
+/* @theme innopolis
+ * Innopolis University — Marp theme (source template)
+ * Primary green #019546 · Tahoma · 5 layouts (title, content, columns, lead, closing)
+ * Design rationale: docs/design/architecture.md and docs/design/adr/.
+ *
+ * This is the SOURCE template — the title background is referenced by a
+ * placeholder. Run `python scripts/build-theme.py` to generate
+ * `themes/innopolis.css` with the background embedded as a base64 data URI.
+ *
+ * Why embedded? When Marp inlines a theme via --theme, url(...) resolves
+ * relative to the HTML output location, not the CSS file — so a relative
+ * path to assets/ breaks for any deck outside the skill folder. Embedding
+ * makes the theme self-contained: no per-deck `cp innopolis-bg.png media/`.
+ *
+ * Font is Tahoma — a system font on Windows and macOS, so nothing to embed.
+ * Verdana and DejaVu Sans are the metric-compatible fallbacks on Linux.
+ */
+
+@charset "UTF-8";
+
+/* @theme innopolis */
+
+/* Design tokens.
+ *
+ * On `section`, deliberately, not `:root`. Marp rewrites a theme's `:root` as
+ * `:where(section):not([\20 root])`, and that `:not([...])` counts an attribute
+ * in the specificity — so a `:root` token here outranks a deck's own
+ * `section { --token: ... }` override no matter how late it comes. Declaring
+ * them on `section` puts theme and deck at equal specificity, where the deck's
+ * frontmatter `style:` block wins on order, which is what a per-deck override
+ * is supposed to do. */
+section {
+  --inno-green:       #019546;  /* primary — H1, borders, accents      */
+  --inno-green-dark:  #2D6E2A;  /* accent — H2, gradients              */
+  --inno-green-light: #81c784;  /* tertiary fills                      */
+  --inno-card-green:  #f0f8f0;  /* card / placeholder background       */
+  --inno-yellow:      #ffc107;  /* warning border, chips               */
+  --inno-card-yellow: #fff8e1;  /* warning card background             */
+  --inno-red:         #d32f2f;  /* alert border                        */
+  --inno-card-red:    #fdecea;  /* alert card background               */
+  --inno-text:        #282828;  /* body text                           */
+  --inno-muted:       #555555;  /* quotes, secondary text              */
+  --inno-footer:      #666666;  /* footers, captions                   */
+  --inno-gray:        #f4f4f4;  /* code background, neutral card       */
+  --inno-rule:        #bbbbbb;  /* column separator, borders           */
+  --inno-white:       #ffffff;
+
+  /* Progress bar. --inno-progress is the current colour; the .b1-.b8 section
+   * classes repaint it, so the bar says how far in AND which section.
+   *
+   * A rainbow, deliberately: adjacent sections must not be confusable at 4px
+   * across a room, and brand green is kept out of the sequence so it can stay
+   * the "no section set" default. Walk b1 -> b7 in spectrum order as the
+   * sections go by; b8 (slate) is for the bookends — agenda, wrap-up — so a
+   * deck is not green for most of its length. See docs/design/adr/0011. */
+  --inno-progress:    #019546;  /* default — brand green                 */
+  --inno-progress-track: #e4e4e4; /* the unfilled remainder of the bar   */
+  /* The section map: every section's colour across the full bar width, in deck
+   * order. A deck gets its own from build-progress-map.py; the default is the
+   * current section's colour alone, which is all CSS can know unaided. */
+  --inno-progress-map: linear-gradient(var(--inno-progress), var(--inno-progress));
+  --inno-b1:          #dc2626;  /* section 1 — red                       */
+  --inno-b2:          #ea580c;  /* section 2 — orange                    */
+  --inno-b3:          #ca8a04;  /* section 3 — gold                      */
+  --inno-b4:          #0d9488;  /* section 4 — teal                      */
+  --inno-b5:          #2563eb;  /* section 5 — blue                      */
+  --inno-b6:          #7c3aed;  /* section 6 — violet                    */
+  --inno-b7:          #db2777;  /* section 7 — magenta                   */
+  --inno-b8:          #475569;  /* bookends  — slate                     */
+  /* Light variant of b1-b6 (Tailwind 400 shades). Kept for decks that already
+   * use them; new decks should not need them. Two shades of one hue do not
+   * separate at 4px — the bands blur into a single line — so reach for a
+   * different bN instead. Dark 900 shades were tried first and failed the same
+   * way: dark-on-dark reads as one muddy streak. */
+  --inno-b1d:         #f87171;  /* red, light                            */
+  --inno-b2d:         #fb923c;  /* orange, light                         */
+  --inno-b3d:         #facc15;  /* gold, light                           */
+  --inno-b4d:         #2dd4bf;  /* teal, light                           */
+  --inno-b5d:         #60a5fa;  /* blue, light                           */
+  --inno-b6d:         #a78bfa;  /* violet, light                         */
+}
+
+/* ------------------------------------------------------------------ */
+/* Base slide                                                         */
+/* ------------------------------------------------------------------ */
+
+section {
+  font-family: Tahoma, Verdana, 'DejaVu Sans', Geneva, sans-serif;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--inno-text);
+  background: var(--inno-white);
+  padding: 30px 44px 60px 44px;
+  display: flex;
+  flex-direction: column;
+  /* flex-start keeps the H1 pinned to the top so headers don't jump
+   * vertically between slides of differing content length. */
+  justify-content: flex-start;
+}
+
+section h1 {
+  color: var(--inno-green);
+  font-size: 42px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  padding: 0;
+  border: 0;
+}
+
+section h2 {
+  color: var(--inno-green-dark);
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 0;
+  border: 0;
+}
+
+section h3 {
+  color: var(--inno-green-dark);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0 4px;
+  padding: 0;
+  border: 0;
+}
+
+section a      { color: var(--inno-green); }
+section strong { color: var(--inno-text); font-weight: bold; }
+section em     { font-style: italic; }
+
+section ul, section ol { margin: 6px 0 6px 24px; padding: 0; }
+section li { margin: 2px 0; }
+
+section blockquote {
+  border-left: 4px solid var(--inno-green);
+  padding: 0 0 0 16px;
+  font-style: italic;
+  color: var(--inno-muted);
+  margin: 10px 0;
+  background: transparent;
+}
+
+section table {
+  font-size: 19px;
+  border-collapse: collapse;
+}
+section th {
+  background: var(--inno-green);
+  color: var(--inno-white);
+  font-weight: bold;
+  text-align: left;
+}
+section th, section td {
+  padding: 5px 10px;
+  border: 1px solid var(--inno-rule);
+}
+
+section code {
+  background: var(--inno-gray);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+section pre {
+  background: var(--inno-gray);
+  font-size: 16px;
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+
+/* Footer — source citations, bottom-left */
+section footer {
+  font-size: 13px;
+  color: var(--inno-footer);
+  position: absolute;
+  bottom: 15px;
+  left: 44px;
+  right: 90px;
+}
+
+/* Page number, bottom-right.
+ * Marpit's own rule pins the number to the corner with `padding: inherit`,
+ * which means the section's 60px bottom padding lifts it far above the
+ * footer. Override with explicit coordinates so number and footer share the
+ * same baseline (bottom: 15px) and the same 44px side margin. */
+section::after {
+  color: var(--inno-footer);
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 13px;
+  padding: 0;
+  bottom: 15px;
+  right: 44px;
+}
+
+/* Progress bar — a hairline along the bottom edge, as wide as the current
+ * slide's share of the deck.
+ *
+ * Marpit stamps every section with data-marpit-pagination and
+ * data-marpit-pagination-total; typed attr() turns those into a width, so the
+ * bar needs no build step and no JavaScript, and it is right in the PDF too.
+ * Requires `paginate: true` and Chrome 133+ (marp-cli drives a far newer
+ * Chromium). Where typed attr() is unsupported the width declaration is
+ * dropped and the bar collapses to nothing — never a broken layout.
+ *
+ * The paint is --inno-progress-map, sized to the full 1280px canvas and pinned
+ * to the left edge, so narrowing the element *clips* the map rather than
+ * squeezing it. With a generated map the bar therefore accumulates: every
+ * section already covered keeps its own colour, and the current one grows at
+ * the right-hand end — you can see how many sections are behind you. Without
+ * one the map is a flat --inno-progress, which the .b1-.b8 classes repaint. */
+section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  pointer-events: none;
+  background-color: var(--inno-progress);
+  background-image: var(--inno-progress-map);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 1280px 4px;
+  width: calc(100% * attr(data-marpit-pagination type(<number>), 0)
+                   / attr(data-marpit-pagination-total type(<number>), 1));
+}
+
+/* The unfilled remainder. It has to be painted by something other than the
+ * ::before, because that element is clipped to the progress width — whatever
+ * it paints stops where the fill stops. The section itself is the one box that
+ * always spans the full canvas. .title has no bar, and .closing sets a
+ * `background` shorthand that would wipe this anyway — it shows a full bar. */
+section:not(.title):not(.closing) {
+  background-image: linear-gradient(var(--inno-progress-track),
+                                    var(--inno-progress-track));
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 100% 4px;
+}
+
+/* Section colours. Carry one across a whole section with the non-underscore
+ * directive, which applies from that slide until the next one changes it:
+ *
+ *     <!-- _class: lead b3 -->      this divider slide
+ *     <!-- class: xl b3 -->         and every slide after it
+ *
+ * Drop back to brand green with a `<!-- class: xl -->` naming no section. */
+section.b1 { --inno-progress: var(--inno-b1); }
+section.b2 { --inno-progress: var(--inno-b2); }
+section.b3 { --inno-progress: var(--inno-b3); }
+section.b4 { --inno-progress: var(--inno-b4); }
+section.b5 { --inno-progress: var(--inno-b5); }
+section.b6 { --inno-progress: var(--inno-b6); }
+section.b7 { --inno-progress: var(--inno-b7); }
+section.b8 { --inno-progress: var(--inno-b8); }
+section.b1d { --inno-progress: var(--inno-b1d); }
+section.b2d { --inno-progress: var(--inno-b2d); }
+section.b3d { --inno-progress: var(--inno-b3d); }
+section.b4d { --inno-progress: var(--inno-b4d); }
+section.b5d { --inno-progress: var(--inno-b5d); }
+section.b6d { --inno-progress: var(--inno-b6d); }
+
+/* ------------------------------------------------------------------ */
+/* Image sizing safety net — keep diagrams inside the slide bounds.    */
+/* A per-image `![h:N](...)` emits an inline style and still wins.     */
+/* Tuned for the 1280x720 canvas with our padding + H1 + footer.       */
+/* ------------------------------------------------------------------ */
+
+/* Center images via flexbox on the wrapping paragraph */
+section p:has(img) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+section img {
+  max-width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+}
+section .columns img       { max-height: 520px; }
+section.dense img          { max-height: 460px; }
+section.dense .columns img { max-height: 440px; }
+
+/* ------------------------------------------------------------------ */
+/* Layout 1: .title — cover slide with the Innopolis background        */
+/* ------------------------------------------------------------------ */
+
+section.title {
+  background-image: {{BG_TITLE}};
+  background-size: cover;
+  background-position: top center;
+  justify-content: flex-end;
+  padding-bottom: 80px;
+}
+section.title h1 { font-size: 48px; margin-bottom: 5px; }
+section.title h2 { font-size: 24px; color: var(--inno-muted); margin-top: 5px; }
+section.title p  { font-size: 18px; color: var(--inno-footer); margin-top: 20px; }
+/* No page number on the cover. Marp's own pagination rule
+ * (section[data-marpit-pagination]::after) outranks `content: none`,
+ * so hide the box outright. */
+section.title::after  { display: none !important; }
+/* Nor a progress bar over the cover photo — the deck hasn't started yet. */
+section.title::before { display: none !important; }
+
+/* ------------------------------------------------------------------ */
+/* Layout 2: .lead — section divider                                  */
+/* ------------------------------------------------------------------ */
+
+section.lead {
+  justify-content: center;
+  text-align: left;
+}
+section.lead h1 { font-size: 52px; margin-bottom: 10px; }
+section.lead h2 { color: var(--inno-muted); }
+
+/* ------------------------------------------------------------------ */
+/* Layout 3: .columns — two-column grid with a center rule            */
+/* ------------------------------------------------------------------ */
+
+.columns,
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: start;
+  min-height: 340px;
+  /* Vertical separator drawn as a background gradient rather than a
+   * border: it sits behind all column content (no z-index dance), always
+   * spans the full container height regardless of which column is
+   * taller, and renders reliably inside Marp's <foreignObject>. */
+  background-image: linear-gradient(var(--inno-rule), var(--inno-rule));
+  background-position: center;
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+}
+
+/* Three- and four-column variants share the styling; the separator is
+ * omitted because a single centered rule would land mid-column. */
+.columns-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: start; }
+.columns-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; align-items: start; }
+
+/* Column sub-headings become full-width green pills so each column
+ * reads as its own labelled block. */
+.columns h2,
+.two-col h2,
+.columns-3 h2,
+.columns-4 h2 {
+  background: var(--inno-green);
+  color: var(--inno-white);
+  font-weight: bold;
+  font-size: 22px;
+  padding: 7px 13px;
+  margin: 0 0 12px 0;
+}
+section.dense .columns h2, section.dense .two-col h2 { font-size: 18px; padding: 5px 10px; }
+section.large .columns h2, section.large .two-col h2 { font-size: 26px; padding: 8px 15px; }
+section.xl    .columns h2, section.xl    .two-col h2 { font-size: 30px; padding: 9px 17px; }
+
+/* An H1 used INSIDE a column is a nested example, not the slide title —
+ * don't let it inherit the 42px slide-title sizing. */
+.columns h1,
+.two-col h1 {
+  font-size: 28px;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+section.dense .columns h1 { font-size: 22px; }
+section.large .columns h1 { font-size: 32px; }
+
+/* ------------------------------------------------------------------ */
+/* Layout 4: .closing — thank-you / questions                         */
+/* ------------------------------------------------------------------ */
+
+section.closing {
+  background: var(--inno-card-green);
+  justify-content: center;
+  text-align: center;
+}
+section.closing h1 { font-size: 56px; }
+section.closing h2 { color: var(--inno-muted); }
+/* No page number on the closing slide, but the progress bar stays — it reads
+ * full there, which is exactly the signal you want on the last slide. */
+section.closing::after { display: none !important; }
+
+/* A centred section detaches list markers from their text — the bullets end up
+ * pinned to the left edge while the words sit in the middle. Centre the list as
+ * a block instead, and let its contents stay left-aligned. */
+section.closing ul,
+section.closing ol {
+  display: inline-block;
+  text-align: left;
+  margin: 8px auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Density tiers — 4 sizes. Default sits between .dense and .large.    */
+/* Tiers change font sizes ONLY: same layout, same structure.          */
+/* ------------------------------------------------------------------ */
+
+section.dense {
+  font-size: 20px;
+  padding-top: 25px;
+}
+section.dense h1 { font-size: 42px; margin-bottom: 8px; }   /* title stays 42 - tiers scale BODY only */
+section.dense h2 { font-size: 24px; margin: 8px 0 6px; }
+section.dense h3 { font-size: 18px; }
+section.dense table { font-size: 17px; }
+section.dense ul, section.dense ol { margin: 4px 0 4px 22px; }
+section.dense li { margin: 1px 0; }
+section.dense p  { margin: 6px 0; }
+section.dense pre { font-size: 14px; }
+
+section.large {
+  font-size: 26px;
+  line-height: 1.45;
+}
+section.large h1 { font-size: 42px; margin-bottom: 18px; }  /* title stays 42 - tiers scale BODY only */
+section.large h2 { font-size: 30px; margin: 12px 0; }
+section.large h3 { font-size: 22px; }
+section.large table { font-size: 22px; }
+section.large li { margin: 4px 0; }
+
+section.xl {
+  font-size: 32px;
+  line-height: 1.5;
+}
+section.xl h1 { font-size: 42px; margin-bottom: 24px; }     /* title stays 42 - tiers scale BODY only */
+section.xl h2 { font-size: 36px; margin: 16px 0; }
+section.xl h3 { font-size: 28px; }
+section.xl table { font-size: 28px; }
+section.xl li { margin: 6px 0; }
+
+/* Table-only size bumps — enlarge a table without enlarging the prose */
+.table-large table  { font-size: 23px !important; }
+.table-xlarge table { font-size: 27px !important; }
+section.table-xlarge table { font-size: 29px !important; }
+
+/* ------------------------------------------------------------------ */
+/* Content modifiers — combine with any tier                          */
+/* ------------------------------------------------------------------ */
+
+.takeaway {
+  background: var(--inno-card-yellow);
+  border-left: 4px solid var(--inno-yellow);
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+  z-index: 2;
+  clear: both;
+}
+
+.stat-box {
+  background: linear-gradient(135deg, var(--inno-green) 0%, var(--inno-green-dark) 100%);
+  color: var(--inno-white);
+  padding: 15px 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 10px 0;
+}
+.stat-box .number { font-size: 38px; font-weight: bold; display: block; }
+.stat-box .label  { font-size: 15px; opacity: 0.92; }
+
+/* Content cards in 4 tints */
+.box {
+  background: var(--inno-card-green);
+  border-left: 4px solid var(--inno-green);
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin: 8px 0;
+}
+.box.y { background: var(--inno-card-yellow); border-left-color: var(--inno-yellow); }
+.box.r { background: var(--inno-card-red);    border-left-color: var(--inno-red); }
+.box.n { background: var(--inno-gray);        border-left-color: var(--inno-rule); }
+
+.chip {
+  display: inline-block;
+  background: var(--inno-yellow);
+  color: var(--inno-text);
+  font-weight: bold;
+  font-size: 13px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.placeholder {
+  background: var(--inno-card-green);
+  border: 2px dashed var(--inno-green);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  color: var(--inno-footer);
+  font-style: italic;
+}
+
+/* Comic illustration placeholder — 8:3 for 3-panel strips */
+.comic-placeholder {
+  width: 840px;
+  height: 315px;
+  background: #f5f5f5;
+  border: 3px dashed #888;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px auto 5px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  color: var(--inno-footer);
+  font-style: italic;
+}
+.comic-caption {
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+  margin: 0 auto;
+}
