@@ -2,15 +2,12 @@
 
 ## Quick route — let Claude Code do it
 
-```bash
-git clone https://github.com/agilebotanist/inno-marp ~/.claude/skills/inno-marp
-claude
-```
+Give Claude Code this prompt:
 
-Then ask: *"Run the inno-marp doctor script and install whatever it reports missing."*
-Claude runs [`scripts/doctor.py`](../../scripts/doctor.py), installs the missing tools
-with your package manager, and re-runs the doctor until it passes. Windows path, the
-per-project variant and updating: [README § Install with Claude Code](../../README.md#install-with-claude-code).
+> *Clone https://github.com/agilebotanist/inno-marp into `.claude/skills/inno-marp`,
+> run its `scripts/doctor.py`, and install whatever it reports missing.*
+
+Use `~/.claude/skills/inno-marp` instead to have the skill in every project.
 
 The rest of this page is the **manual route** — every tool, what it is for, and how to
 install it on Windows, macOS and Linux.

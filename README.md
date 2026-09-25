@@ -67,50 +67,13 @@ Things to say to it:
 
 ## Install with Claude Code
 
-**1. Clone the skill** where Claude Code looks for skills — for all your projects:
+Give Claude Code this prompt:
 
-```bash
-git clone https://github.com/agilebotanist/inno-marp ~/.claude/skills/inno-marp
-```
+> *Clone https://github.com/agilebotanist/inno-marp into `.claude/skills/inno-marp`,
+> run its `scripts/doctor.py`, and install whatever it reports missing.*
 
-```powershell
-# Windows PowerShell
-git clone https://github.com/agilebotanist/inno-marp "$env:USERPROFILE\.claude\skills\inno-marp"
-```
-
-…or for one decks repository only (this is also what makes the
-[VS Code preview](docs/user/vscode-preview.md) work):
-
-```bash
-git clone https://github.com/agilebotanist/inno-marp .claude/skills/inno-marp
-```
-
-**2. Start Claude Code** in your decks folder and check the skill is there:
-
-```bash
-claude
-> /inno-marp
-```
-
-**3. Let Claude set up the rest.** Ask it:
-
-> *Run the inno-marp doctor script and install whatever it reports missing.*
-
-`scripts/doctor.py` lists Marp CLI, draw.io Desktop, Vega-Lite, Mermaid CLI, LibreOffice
-and the Python packages; Claude can install them with your package manager (scoop,
-winget, brew, apt, npm, pip) and re-run the doctor until everything is green. The manual
-route, per OS, is in [docs/user/installation.md](docs/user/installation.md).
-
-Or skip step 1, too — hand Claude the URL:
-
-> *Install the skill from https://github.com/agilebotanist/inno-marp into my user skills
-> folder, then run its doctor.*
-
-**Update** later with `git -C ~/.claude/skills/inno-marp pull`.
-
-Without Claude Code everything still works: the theme, scripts and docs are plain files
-— install the tools, copy [examples/starter/](examples/starter/slides.md), and build
-with `python scripts/build-deck.py slides.md --pdf`.
+`.claude/skills/` in your decks folder makes it a project skill. Say `~/.claude/skills/`
+instead to have it in every project. Manual steps: [docs/user/installation.md](docs/user/installation.md).
 
 Recommended companions:
 
