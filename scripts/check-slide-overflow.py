@@ -128,7 +128,11 @@ def main(path: str) -> int:
             if not paginated and len(lines) <= TITLE_MAX_LINES and not content_images:
                 continue
 
-            title = (page.extract_text() or "\n").split("\n")[0][:46]
+            # First line is the title — unless the slide carries a .demo note,
+            # which sits above the title in the top margin.
+            text_lines = [l for l in (page.extract_text() or "").split("\n")
+                          if l.strip() and not l.startswith("DEMO ·")]
+            title = (text_lines or [""])[0][:46]
             rows.append((bottom / h, i, title))
 
     rows.sort(reverse=True)

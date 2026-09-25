@@ -115,6 +115,7 @@ Headings, lists, tables, blockquotes, code, links and images pick up the theme.
 | Content cards | `<div class="box">`, `.box.y` caution, `.box.r` alert, `.box.n` aside |
 | Inline label | `<span class="chip">NEW</span>` |
 | A diagram / chart not drawn yet | `<div class="placeholder">Diagram: …</div>` |
+| Say what a slide demonstrates (training decks) | `<div class="demo">…</div>` — top-right margin note; remove from real decks |
 | A diagram | draw.io pipeline → [references/diagrams.md](references/diagrams.md) |
 | A chart | Vega-Lite → [references/charts.md](references/charts.md) |
 | Any file in `media/` | [references/media-conventions.md](references/media-conventions.md) |

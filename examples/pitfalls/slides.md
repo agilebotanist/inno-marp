@@ -8,6 +8,8 @@ class: xl
 <!-- Deliberately broken deck. Every slide shows one common mistake.
      check-slide-overflow.py MUST exit 1 on it — see README.md. -->
 
+<div class="demo">Pitfall — markdown inside a <code>&lt;div&gt;</code> is not parsed; use <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code></div>
+
 # Markdown Inside a Box Is Not Parsed
 
 <div class="takeaway">This takeaway uses **markdown bold** and *italics* — they render literally.</div>
@@ -16,17 +18,23 @@ class: xl
 
 ---
 
+<div class="demo">Pitfall — no size given: the SVG shows at its natural, small width</div>
+
 # A Small Diagram Is Not Enlarged
 
 ![Review flow, no size given](../starter/media/review-flow.svg)
 
 ---
 
+<div class="demo">Fix — <code>w:900</code> in the alt text enlarges a wide diagram</div>
+
 # A Small Diagram Is Not Enlarged
 
 ![Review flow, sized with w:900 w:900](../starter/media/review-flow.svg)
 
 ---
+
+<div class="demo">Pitfall — columns too tall grow behind the opaque takeaway; the checker reports HIDDEN</div>
 
 # Too Much in the Columns Hides Behind the Box
 
@@ -62,6 +70,8 @@ class: xl
 <div class="takeaway">The last bullets of both columns are painted over by this box.</div>
 
 ---
+
+<div class="demo">Pitfall — content past the bottom runs under the footer; the checker reports OVERFLOW</div>
 
 # A Long List Runs Under the Footer
 

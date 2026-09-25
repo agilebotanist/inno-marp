@@ -10,6 +10,13 @@
 - `examples/pitfalls/` — a deliberately broken deck illustrating common mistakes and
   serving as a regression test for the overflow checker.
 - `build-diagram.py --scale N` for crisp PNG exports.
+- `.demo` class — a DEMO note in the top-right margin saying what a slide
+  demonstrates; every slide of the starter and pitfalls decks carries one, and the
+  README gallery captions each slide with its feature.
+
+### Changed
+- `check-slide-overflow.py` names a slide by its title even when a `.demo` note sits
+  above it.
 - README disclaimer: not an official Innopolis University template, no guarantees.
 - README: nine-slide gallery from cover to closing; progress bar and density tiers as
   their own features; "What the skill does at each step" diagram

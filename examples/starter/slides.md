@@ -15,7 +15,12 @@ style: |
   /* end progress-map */
 ---
 
+<!-- The yellow DEMO notes (<div class="demo">) say what each slide demonstrates.
+     Delete them when you copy this deck. -->
+
 <!-- _class: title -->
+
+<div class="demo"><code>_class: title</code> — cover layout, photo background, no page number or bar</div>
 
 # Small Pull Requests Merge Faster
 ## Engineering practices · Session 3
@@ -25,6 +30,8 @@ Speaker Name · Innopolis University
 ---
 
 <!-- class: xl b8 -->
+
+<div class="demo"><code>class: xl b8</code> — xl tier for the deck; slate bookend starts the bar</div>
 
 # Three Things to Take Away Today
 
@@ -39,6 +46,8 @@ Speaker Name · Innopolis University
 <!-- _class: lead b1 -->
 <!-- class: xl b1 -->
 
+<div class="demo"><code>lead b1</code> divider — section 1, bar turns red · <code>.comic-placeholder</code></div>
+
 # Why Size Matters
 ## What happens to a review as the diff grows
 
@@ -51,6 +60,8 @@ Speaker Name · Innopolis University
 
 <!-- _class: large b1 -->
 
+<div class="demo">Vega-Lite chart (<code>media/pr-size.vl.json</code>) · <code>large b1</code> tier · <code>.box.n</code> caveat</div>
+
 # Review Time Grows Faster Than the Diff
 
 ![Median hours to merge by diff size](media/pr-size.svg)
@@ -58,6 +69,8 @@ Speaker Name · Innopolis University
 <div class="box n">Illustrative numbers. Measure your own repository before quoting any.</div>
 
 ---
+
+<div class="demo"><code>.columns</code> with <code>h2</code> pills · <code>.takeaway</code> · xl tier carried from the divider</div>
 
 # Small and Large Reviews Fail Differently
 
@@ -89,12 +102,16 @@ Speaker Name · Innopolis University
 <!-- _class: lead b2 -->
 <!-- class: xl b2 -->
 
+<div class="demo"><code>lead b2</code> divider — section 2, bar adds orange and keeps the red</div>
+
 # Splitting a Change
 ## Cut along intent, so each piece can be judged on its own
 
 ---
 
 <!-- _class: large b2 -->
+
+<div class="demo">draw.io diagram from <code>media/review-flow.mmd</code> · <code>w:900</code> to enlarge a small SVG</div>
 
 # Each Review Round Is a Loop, Not a Gate
 
@@ -103,6 +120,8 @@ Speaker Name · Innopolis University
 ---
 
 <!-- _class: dense b2 -->
+
+<div class="demo"><code>dense b2</code> tier for a reference table · <code>.box.y</code> caution · footer citation</div>
 
 # Four Ways to Split, Ranked by How Often They Help
 
@@ -123,10 +142,14 @@ Speaker Name · Innopolis University
 <!-- _class: lead b3 -->
 <!-- class: xl b3 -->
 
+<div class="demo"><code>lead b3</code> divider — section 3, gold · <code>footer: ""</code> resets the citation</div>
+
 # Keeping Main Releasable
 ## Merge often without shipping half a feature
 
 ---
+
+<div class="demo">Two <code>.stat-box</code> in <code>.columns</code> · <code>.box.n</code> aside</div>
 
 # Merge Within a Day, or Split Again
 
@@ -155,6 +178,8 @@ Speaker Name · Innopolis University
 
 <!-- class: xl b8 -->
 
+<div class="demo"><code>class: xl b8</code> — back to slate for the wrap-up bookend</div>
+
 # Try It on Your Next Change
 
 - Open the refactor on its own first
@@ -164,6 +189,8 @@ Speaker Name · Innopolis University
 ---
 
 <!-- _class: closing -->
+
+<div class="demo"><code>_class: closing</code> — no page number; the bar reads full</div>
 
 # Questions?
 

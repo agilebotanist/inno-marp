@@ -110,6 +110,7 @@ Combine freely with any tier.
 | `.chip` | Inline yellow label |
 | `.placeholder` | Dashed green box for a visual not yet made |
 | `.comic-placeholder` / `.comic-caption` | Illustration slot on a divider — see [illustrations.md](illustrations.md) |
+| `.demo` | Tutorial annotation: a dashed **DEMO** note in the top-right margin saying what the slide demonstrates. Absolutely positioned, so it never moves the layout. For example and training decks — delete it from real ones |
 
 `.takeaway` and `.box` are **opaque and in the normal flow**. When the content above
 one is too tall, it grows *behind* the box and disappears — the text is still in the

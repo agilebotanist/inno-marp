@@ -24,8 +24,9 @@ message to the agent:
 
 ## 2. Draft the slides
 
-Start from [examples/starter/slides.md](../../examples/starter/slides.md). Set the
-frontmatter:
+Start from [examples/starter/slides.md](../../examples/starter/slides.md). Each of its
+slides carries a yellow **DEMO** note naming the feature it shows — read them, then
+delete every `<div class="demo">…</div>` line. Set the frontmatter:
 
 ```yaml
 ---

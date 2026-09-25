@@ -20,6 +20,8 @@ Theme maintainers
 
 ---
 
+<div class="demo"><code>.demo</code> annotation — top-right margin, never moves the layout</div>
+
 # Default Tier Exercises Every Base Element
 
 Body text at the default 22px. **Bold**, *italic*, `inline code`,

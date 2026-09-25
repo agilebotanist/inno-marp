@@ -27,7 +27,7 @@ Check these on the rendered PDF or PNGs:
 | Slide | Assertion |
 |-------|-----------|
 | 1 | Innopolis photo background fills the slide; title bottom-left; **no page number, no progress bar** |
-| 2 | H1 green at top; bar green over a grey track; table header green with white text; blockquote with a green left rule; footer bottom-left; **page number on the same baseline as the footer** |
+| 2 | Dashed yellow **DEMO** note in the top-right margin, clear of the title (the title sits exactly where it does on slides without one); H1 green at top; bar green over a grey track; table header green with white text; blockquote with a green left rule; footer bottom-left; **page number on the same baseline as the footer** |
 | 3 | `.lead` — content vertically centred, still left-aligned; bar turns **orange** (`b2`) and stays orange through slides 4–5 |
 | 4 | **Thin grey vertical rule** between the columns; both `h2` render as full-width green pills; takeaway spans full width below |
 | 5 | `.large` — visibly bigger body than slide 2, **title the same size** as slide 2; bar still orange |

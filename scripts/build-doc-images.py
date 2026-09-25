@@ -74,11 +74,24 @@ def frame(img: Image.Image) -> Image.Image:
     return out
 
 
-def grid(images: list[Image.Image], cols: int, width: int) -> Image.Image:
-    """Tile images into a sheet `width` px wide, keeping each one's ratio."""
+def grid(images: list[Image.Image], cols: int, width: int,
+         captions: list[str] | None = None) -> Image.Image:
+    """Tile images into a sheet `width` px wide, keeping each one's ratio.
+
+    Captions are drawn AFTER scaling, under each cell, so they stay readable
+    however small the cells get — unlike text inside the slide itself."""
     cell_w = (width - GAP * (cols + 1)) // cols
     cells = [im.resize((cell_w, round(im.height * cell_w / im.width)), Image.LANCZOS)
              for im in images]
+    if captions:
+        f, bar = font(17), 30
+        out = []
+        for c, text in zip(cells, captions):
+            cap = Image.new("RGB", (c.width, c.height + bar), BG)
+            cap.paste(c, (0, 0))
+            ImageDraw.Draw(cap).text((4, c.height + 6), text, fill=INK, font=f)
+            out.append(cap)
+        cells = out
     rows = [cells[i:i + cols] for i in range(0, len(cells), cols)]
     heights = [max(c.height for c in r) for r in rows]
     sheet = Image.new("RGB", (width, sum(heights) + GAP * (len(rows) + 1)), BG)
@@ -227,8 +240,19 @@ def main() -> int:
         # README — the one hero figure
         # Nine slides in deck order, cover to closing, so the progress bar is seen
         # filling up across the gallery.
-        save(grid([frame(s) for s in slides(starter, [1, 2, 4, 5, 6, 7, 8, 10, 12])], 3, 1600),
-             "gallery-starter.png")
+        gallery = {
+            1: "title — cover layout",
+            2: "xl tier · slate bookend on the bar",
+            4: "Vega-Lite chart · large tier",
+            5: ".columns · .takeaway",
+            6: "lead divider — the bar adds orange",
+            7: "draw.io diagram from Mermaid",
+            8: "dense tier · table · footer citation",
+            10: ".stat-box in .columns",
+            12: "closing — the bar reads full",
+        }
+        save(grid([frame(s) for s in slides(starter, list(gallery))], 3, 1600,
+                  captions=list(gallery.values())), "gallery-starter.png")
 
         # css-reference / workflow — layouts and tiers
         lay = slides(test, [1, 2, 3, 4, 11])
@@ -255,7 +279,9 @@ def main() -> int:
                   1, 1470), "progress-bar-untagged-slide.png")
 
         # troubleshooting — pitfalls
-        save(frame(Image.open(pits[0]).convert("RGB")), "pitfall-markdown-in-div.png")
+        save(label(frame(Image.open(pits[0]).convert("RGB")),
+                   "markdown inside a <div> is printed literally", RED),
+             "pitfall-markdown-in-div.png")
         save(grid([label(frame(s), t) for s, t in
                    zip(slides(pits, [2, 3]), ["no size: natural width", "w:900"])], 2, 1400),
              "pitfall-diagram-size.png")
