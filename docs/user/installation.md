@@ -141,7 +141,7 @@ work ([vscode-preview.md](vscode-preview.md)).
 
 ```bash
 cd my-decks-repo
-git clone <this-repo-url> .claude/skills/inno-marp
+git clone https://github.com/agilebotanist/inno-marp .claude/skills/inno-marp
 ```
 
 Or, to share one clone between several projects, link it:
@@ -162,7 +162,7 @@ rather than vendoring it.
 ### Option B — for every project
 
 ```bash
-git clone <this-repo-url> ~/.claude/skills/inno-marp
+git clone https://github.com/agilebotanist/inno-marp ~/.claude/skills/inno-marp
 ```
 
 Claude Code picks it up in every session. For the VS Code preview you then still need

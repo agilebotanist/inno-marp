@@ -44,7 +44,7 @@ ran off a slide or hid behind a callout box.
    LibreOffice).
 2. **Install the skill** into your decks repository:
    ```bash
-   git clone <this-repo-url> .claude/skills/inno-marp
+   git clone https://github.com/agilebotanist/inno-marp .claude/skills/inno-marp
    python .claude/skills/inno-marp/scripts/doctor.py
    ```
 3. **Set up the VS Code preview** — [docs/user/vscode-preview.md](docs/user/vscode-preview.md).
