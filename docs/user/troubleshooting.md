@@ -2,6 +2,35 @@
 
 Start with `python <skill-dir>/scripts/doctor.py`.
 
+## What the common failures look like
+
+All four come from [examples/pitfalls/](../../examples/pitfalls/README.md), a deck
+broken on purpose.
+
+**Markdown inside an HTML block is printed literally.** Use `<strong>` / `<em>` inside
+`<div>`s.
+
+![Two takeaway boxes: the first shows literal asterisks around "markdown bold", the second renders HTML bold and italics correctly](../images/pitfall-markdown-in-div.png)
+
+**A small diagram is not enlarged.** The theme only *shrinks* images to fit. Give a
+wide diagram a width: `![Flow w:900](media/flow.svg)`.
+
+![The same diagram twice: tiny at its natural width, and filling the slide with w:900](../images/pitfall-diagram-size.png)
+
+**Text hidden behind a box.** Columns that are too tall grow *behind* the opaque
+takeaway. The overflow check reports it as `HIDDEN`; cut bullets or drop a tier.
+
+![Two columns whose last bullets are painted over by the takeaway box](../images/pitfall-hidden-text.png)
+
+**Content under the footer.** A long list runs past the bottom of the canvas. Reported
+as `OVERFLOW`; cut, split the slide, or drop a tier.
+
+![A ten-item list whose last items run under the footer and off the slide](../images/pitfall-overflow.png)
+
+A **green gap in the progress bar** is the fifth common one — a slide inside a section
+that lost its section class. Picture and fix:
+[layouts-tiers-progress.md § The classic mistake](layouts-tiers-progress.md#the-classic-mistake).
+
 ## Rendering
 
 | Symptom | Cause | Fix |

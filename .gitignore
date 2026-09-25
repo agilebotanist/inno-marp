@@ -5,6 +5,7 @@ slides.pptx
 slides.editable.pptx
 *.png
 !assets/*.png
+!docs/images/*.png
 
 # Python
 __pycache__/

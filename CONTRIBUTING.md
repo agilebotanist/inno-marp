@@ -16,6 +16,21 @@
 6. If you changed a palette colour: update `scripts/build-diagram.py` and
    `references/charts.md` too.
 
+## Refreshing the documentation figures
+
+Every picture in `README.md` and `docs/` is generated from the example decks — none is
+drawn by hand except the two `.mmd` sources in `docs/images/`. After changing the theme
+or an example deck:
+
+```bash
+python scripts/build-deck.py examples/starter/slides.md --pdf   # the PPTX comparison needs the PDF
+python scripts/build-doc-images.py
+```
+
+Then look at every changed image before committing. `examples/pitfalls/` is broken on
+purpose: if `build-deck.py --pdf` ever **passes** on it, the overflow checker has
+regressed.
+
 ## Changing a script
 
 - Stdlib-only for the core scripts; optional dependencies are imported lazily with a

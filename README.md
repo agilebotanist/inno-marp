@@ -1,5 +1,11 @@
 # inno-marp
 
+> [!IMPORTANT]
+> **Not an official Innopolis University template.** This is an independent, personal
+> project, not produced or endorsed by the university. It comes with **no guarantees** —
+> use it at your own discretion, if you find it helpful. For official branding, follow
+> the university's own brand guidelines.
+
 **Innopolis University slide decks from Markdown.** A [Marp](https://marp.app) theme, a
 diagram and chart pipeline, build and check scripts, and a
 [Claude Code](https://docs.claude.com/en/docs/claude-code) skill that knows how to use
@@ -24,6 +30,8 @@ python scripts/build-deck.py slides.md --pdf
 
 → `slides.html`, `slides.pdf`, a section-coloured progress bar, and a check that nothing
 ran off a slide or hid behind a callout box.
+
+![Six slides from the starter deck: title, two columns with a takeaway, a bar chart, a table, a draw.io diagram, and stat boxes](docs/images/gallery-starter.png)
 
 ## What you get
 
@@ -65,6 +73,7 @@ Recommended companions:
 | Installing everything | [docs/user/installation.md](docs/user/installation.md) |
 | Live preview in VS Code | [docs/user/vscode-preview.md](docs/user/vscode-preview.md) |
 | Idea → shared deck, including minto review | [docs/user/workflow.md](docs/user/workflow.md) |
+| Layouts, `dense` / `large` / `xl`, the progress bar | [docs/user/layouts-tiers-progress.md](docs/user/layouts-tiers-progress.md) |
 | PowerPoint, image vs editable | [docs/user/pptx-export.md](docs/user/pptx-export.md) |
 | Something is wrong | [docs/user/troubleshooting.md](docs/user/troubleshooting.md) |
 | Every class and token | [references/css-reference.md](references/css-reference.md) |
@@ -95,9 +104,11 @@ inno-marp/
 ├── references/              # depth for authors and the agent
 ├── examples/
 │   ├── starter/             # copy this
-│   └── render-test/         # acceptance deck for theme changes
+│   ├── render-test/         # acceptance deck for theme changes
+│   └── pitfalls/            # deliberately broken — the checker must fail on it
 └── docs/
-    ├── user/                # installation, VS Code, workflow, PPTX, troubleshooting
+    ├── user/                # installation, VS Code, workflow, layouts & tiers, PPTX, troubleshooting
+    ├── images/              # figures — regenerate with scripts/build-doc-images.py
     └── design/              # architecture + ADRs
 ```
 

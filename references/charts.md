@@ -35,7 +35,7 @@ slide asserts, not from the shape of the data.
 - **Before / after** → grouped bar, light → dark.
 
 When the chart rebuilds a figure from a source, keep that figure's form — see
-[media conventions § Figures from a source](media-conventions.md#figures-from-a-source).
+[media conventions § Figures from a source](media-conventions.md#6-figures-from-a-source).
 
 ---
 

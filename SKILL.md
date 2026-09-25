@@ -276,6 +276,7 @@ design choice: [docs/design/](docs/design/architecture.md).
 | Name, store and credit media files | [references/media-conventions.md](references/media-conventions.md) |
 | Illustrations on dividers | [references/illustrations.md](references/illustrations.md) |
 | Slide-writing rules | [references/slide-writing.md](references/slide-writing.md) |
+| Explain tiers and the progress bar to a person, with pictures | [docs/user/layouts-tiers-progress.md](docs/user/layouts-tiers-progress.md) |
 | A complete deck | [examples/starter/](examples/starter/slides.md) |
 | Verify the theme after a change | [examples/render-test/](examples/render-test/README.md) |
 

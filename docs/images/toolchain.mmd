@@ -1,0 +1,18 @@
+flowchart LR
+    MMD[diagram .mmd] --> DIO[draw.io Desktop]
+    DIO --> DSVG[.drawio and .svg]
+    VL[chart .vl.json] --> VL2[vl2svg]
+    VL2 --> CSVG[chart .svg]
+    MD[slides.md] --> MARP[Marp CLI]
+    DSVG --> MARP
+    CSVG --> MARP
+    MARP --> HTML[HTML]
+    MARP --> PDF[PDF]
+    MARP --> PPTX[PPTX of images]
+    PDF --> CHK[overflow check]
+    PDF --> LO[LibreOffice]
+    LO --> EPPTX[editable PPTX]
+    style MARP fill:#019546,stroke:#2D6E2A,color:#FFFFFF
+    style DIO fill:#019546,stroke:#2D6E2A,color:#FFFFFF
+    style VL2 fill:#019546,stroke:#2D6E2A,color:#FFFFFF
+    style LO fill:#019546,stroke:#2D6E2A,color:#FFFFFF

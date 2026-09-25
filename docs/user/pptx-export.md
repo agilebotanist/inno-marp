@@ -53,7 +53,10 @@ result — but it re-renders the deck internally and took ~140 s where the PDF r
 
 LibreOffice rebuilds every line of text as a **fixed-width text box** at the position it
 had in the PDF. That preserves the look of flowing text well, and fails where text
-was laid out in narrow cells:
+was laid out in narrow cells. Left, the image PPTX (identical to the PDF); right, the
+editable PPTX of the same slides:
+
+![Slide 5 (two columns) is near-identical in both; slide 8's table is garbled in the editable PPTX — header words cut, cells wrapping mid-word, rows overlapping, the footer wrapping](../images/pptx-image-vs-editable.png)
 
 | Element | Result | Fix |
 |---------|--------|-----|

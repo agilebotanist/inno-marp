@@ -3,10 +3,7 @@
 Seven steps. Steps 1 and 6 are where decks get good; the rest is mechanics that the
 scripts handle.
 
-```
-1 Plan → 2 Draft slides → 3 Media → 4 Build → 5 Check → 6 Review (minto) → 7 Share
-                              ↑_________________________________|   (iterate)
-```
+![Seven steps: plan, draft slides, media, build, check, review with minto, share — with a loop from review back to drafting](../images/workflow-steps.png)
 
 With Claude Code, you can drive every step in plain language — *"plan a 45-minute deck
 on X"*, *"draw the review flow as a diagram"*, *"build the PDF and check overflow"*,
@@ -43,6 +40,12 @@ class: xl          # deck default for online / laptop audiences
   The title list alone should read as the argument.
 - Tag each section on its divider: `<!-- _class: lead bN -->` + `<!-- class: xl bN -->`,
   `b1`…`b7` in order, `b8` for agenda and wrap-up.
+- Choose the tier per slide only where `xl` does not fit — `large`, then `dense`.
+
+Layouts, the `dense` / `large` / `xl` tiers and the section-coloured progress bar are
+explained with pictures in [layouts-tiers-progress.md](layouts-tiers-progress.md).
+
+![The same slide in four density tiers](../images/density-tiers.png)
 - Put the detail you cut — numbers, caveats, the story — in speaker notes
   (`<!-- … -->`) the moment you cut it, not later.
 - Leave `<div class="placeholder">` for visuals you have not made yet.
@@ -83,6 +86,13 @@ writing, and build only to check.
 - `OVERFLOW` — content runs under the footer. Cut words; then drop that slide one tier.
 - `HIDDEN` — text sits behind an opaque `.takeaway` / `.box`. Same fix.
 - `tight` — fine, but look at it.
+
+`HIDDEN` is the one you would miss by eye in a hurry — the slide looks nearly right, and
+it measured *under* the overflow limit:
+
+![A two-column slide whose last bullets are cut off by the yellow takeaway box painted over them](../images/pitfall-hidden-text.png)
+
+More failure pictures: [troubleshooting.md](troubleshooting.md).
 
 Then **open the PDF and look at every slide you changed.** The checker is a net, not a
 proof. Also check:

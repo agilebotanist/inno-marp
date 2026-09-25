@@ -52,6 +52,11 @@ nothing embedded. Base body 22 px on a 1280×720 canvas.
 
 ## The 5 layouts
 
+![The five layouts: title, default content, lead divider, columns, closing](../docs/images/layouts.png)
+
+Usage guide with pictures of tiers and the progress bar:
+[docs/user/layouts-tiers-progress.md](../docs/user/layouts-tiers-progress.md).
+
 | Class | Purpose | Directive |
 |-------|---------|-----------|
 | `.title` | Cover slide, Innopolis photo background, content bottom-aligned | `<!-- _class: title -->` |

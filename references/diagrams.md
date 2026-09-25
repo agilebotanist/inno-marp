@@ -144,7 +144,7 @@ Installation: [docs/user/installation.md](../docs/user/installation.md#the-drawi
 When a slide draws on a published figure, **rebuild that figure in draw.io — do not
 screenshot it, and do not "improve" it.** Keep its structure, labels and shape, so a
 reader who opens the source recognises the picture. See
-[media conventions § Figures from a source](media-conventions.md#figures-from-a-source).
+[media conventions § Figures from a source](media-conventions.md#6-figures-from-a-source).
 
 ---
 

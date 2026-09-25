@@ -98,7 +98,8 @@ def theme_drawio(path: Path) -> int:
     return total
 
 
-def build(src: Path, fmt: str, cli: str, do_theme: bool, layout: str | None) -> None:
+def build(src: Path, fmt: str, cli: str, do_theme: bool, layout: str | None,
+          scale: float = 1.0) -> None:
     if src.suffix == ".mmd":
         drawio = src.with_suffix(".drawio")
         run(cli, ["-x", "-f", "xml", "-o", str(drawio), str(src)])
@@ -128,6 +129,8 @@ def build(src: Path, fmt: str, cli: str, do_theme: bool, layout: str | None) -> 
         # the text no longer selectable or scalable. Off: real <text>, ~95%
         # smaller, and the font falls back to the stack named in the style.
         args += ["--embed-svg-fonts", "false"]
+    elif scale != 1.0:
+        args += ["-s", str(scale)]   # raster only: 2 = crisp on high-DPI screens
     run(cli, args + ["-o", str(out), str(drawio)])
     if not out.exists():
         raise RuntimeError(f"export produced no output: {out}")
@@ -144,6 +147,8 @@ def main() -> int:
     ap.add_argument("--no-theme", action="store_true",
                     help="keep draw.io's default colors instead of the Innopolis palette")
     ap.add_argument("--layout", help="ELK layout to apply: verticalFlow, horizontalFlow, organic, tree, circle")
+    ap.add_argument("--scale", type=float, default=1.0,
+                    help="raster scale for --format png (default 1; 2 for crisp docs images)")
     args = ap.parse_args()
 
     cli = find_cli()
@@ -155,7 +160,7 @@ def main() -> int:
             continue
         print(f"{src}:")
         try:
-            build(src, args.format, cli, not args.no_theme, args.layout)
+            build(src, args.format, cli, not args.no_theme, args.layout, args.scale)
         except Exception as exc:  # noqa: BLE001 — report and continue the batch
             print(f"  FAILED: {exc}", file=sys.stderr)
             failed += 1

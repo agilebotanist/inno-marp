@@ -50,7 +50,12 @@ URL) — not from an absolute path. With the skill installed per project
   updating the skill.
 - A theme path that does not resolve fails **silently**: the preview falls back to the
   default Marp theme. If the preview shows no green headings and no progress bar, the
-  path is wrong.
+  path is wrong. This is the difference to look for:
+
+![Left: a slide in the Innopolis theme. Right: the same slide when the theme is not registered — blue-grey headings, no columns, no box, no progress bar](../images/theme-registered-vs-missing.png)
+
+  With the theme missing, the `.columns` and `.takeaway` blocks still render, but
+  unstyled — the two columns collapse into one list.
 
 ## Use it
 

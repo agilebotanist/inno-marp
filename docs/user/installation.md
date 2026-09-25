@@ -7,6 +7,8 @@ macOS and Linux. When you are done, run:
 python scripts/doctor.py
 ```
 
+![Toolchain: diagrams go through draw.io, charts through vl2svg, both into Marp with slides.md; Marp writes HTML, PDF and an image PPTX; the PDF feeds the overflow check and LibreOffice for the editable PPTX](../images/toolchain.png)
+
 | Tool | Needed for | Required? |
 |------|------------|-----------|
 | [Node.js](#nodejs) ≥ 18 | runs marp, mmdc, vl2svg | yes |

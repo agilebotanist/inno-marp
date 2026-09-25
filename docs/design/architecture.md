@@ -71,6 +71,8 @@ examples.
 | **Deck build** | `scripts/build-deck.py` | Orders the steps: HTML → map → HTML → PDF → check → PPTX(s) |
 | **Overflow check** | `scripts/check-slide-overflow.py` | Measures content extent and text hidden behind callouts on the PDF |
 | **Doctor** | `scripts/doctor.py` | Reports which tools are installed |
+| **Doc figures** | `scripts/build-doc-images.py` | Renders the example decks and composes every figure in `docs/images/` |
+| **Pitfalls deck** | `examples/pitfalls/` | Deliberately broken; the overflow checker must fail on it |
 | **Acceptance deck** | `examples/render-test/` | 11 slides + assertion table; run after any theme change |
 | **Starter deck** | `examples/starter/` | Copyable example of every convention |
 
