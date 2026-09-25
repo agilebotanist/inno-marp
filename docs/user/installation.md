@@ -1,5 +1,22 @@
 # Installation
 
+## Quick route — let Claude Code do it
+
+```bash
+git clone https://github.com/agilebotanist/inno-marp ~/.claude/skills/inno-marp
+claude
+```
+
+Then ask: *"Run the inno-marp doctor script and install whatever it reports missing."*
+Claude runs [`scripts/doctor.py`](../../scripts/doctor.py), installs the missing tools
+with your package manager, and re-runs the doctor until it passes. Windows path, the
+per-project variant and updating: [README § Install with Claude Code](../../README.md#install-with-claude-code).
+
+The rest of this page is the **manual route** — every tool, what it is for, and how to
+install it on Windows, macOS and Linux.
+
+## Manual route
+
 Everything the pipeline uses, what each tool is for, and how to install it on Windows,
 macOS and Linux. When you are done, run:
 

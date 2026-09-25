@@ -5,8 +5,9 @@
 
 Maintainer tool. Run it after changing the theme or an example deck, so the
 pictures in README.md and docs/ show what the code actually renders. Every
-figure is derived from committed sources — nothing in docs/images/ is drawn by
-hand except the two .mmd diagram sources.
+figure is derived from committed sources — the only hand-made inputs in
+docs/images/ are the diagram sources (.mmd, and skill-features.drawio, which is
+hand-authored draw.io XML: edit it in draw.io).
 
 Needs: marp, Pillow, draw.io (diagrams), and for the PPTX comparison
 LibreOffice + pdfplumber. Missing optional tools skip their figures.
@@ -199,10 +200,16 @@ def mapped_deck(md_text: str, tmp: Path, tag: str) -> list[Path]:
 
 
 def diagrams() -> None:
-    for mmd in sorted(OUT.glob("*.mmd")):
-        subprocess.run([sys.executable, str(SCRIPTS / "build-diagram.py"), str(mmd),
-                        "--format", "png", "--scale", "2"], capture_output=True)
-        png = mmd.with_suffix(".png")
+    """Mermaid sources go through the full pipeline; a .drawio with no .mmd beside
+    it is hand-authored — export it as it is, colours untouched."""
+    for src in sorted(OUT.glob("*.mmd")) + sorted(
+            d for d in OUT.glob("*.drawio") if not d.with_suffix(".mmd").exists()):
+        cmd = [sys.executable, str(SCRIPTS / "build-diagram.py"), str(src),
+               "--format", "png", "--scale", "2"]
+        if src.suffix == ".drawio":
+            cmd.append("--no-theme")
+        subprocess.run(cmd, capture_output=True)
+        png = src.with_suffix(".png")
         print(f"  {png.name:<34} {'ok' if png.exists() else 'FAILED (draw.io?)'}")
 
 
@@ -218,7 +225,9 @@ def main() -> int:
 
         print("writing docs/images/:")
         # README — the one hero figure
-        save(grid([frame(s) for s in slides(starter, [1, 5, 4, 8, 7, 10])], 3, 1600),
+        # Nine slides in deck order, cover to closing, so the progress bar is seen
+        # filling up across the gallery.
+        save(grid([frame(s) for s in slides(starter, [1, 2, 4, 5, 6, 7, 8, 10, 12])], 3, 1600),
              "gallery-starter.png")
 
         # css-reference / workflow — layouts and tiers

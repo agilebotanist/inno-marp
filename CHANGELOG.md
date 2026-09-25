@@ -11,6 +11,10 @@
   serving as a regression test for the overflow checker.
 - `build-diagram.py --scale N` for crisp PNG exports.
 - README disclaimer: not an official Innopolis University template, no guarantees.
+- README: nine-slide gallery from cover to closing; progress bar and density tiers as
+  their own features; "What the skill does at each step" diagram
+  (`docs/images/skill-features.drawio`, hand-authored draw.io); "Install with Claude
+  Code" — clone, `/inno-marp`, and letting Claude run the doctor and install the tools.
 
 ### Fixed
 - `doctor.py` reported the theme as stale in every fresh clone (mtime comparison).

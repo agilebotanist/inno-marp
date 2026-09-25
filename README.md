@@ -31,13 +31,17 @@ python scripts/build-deck.py slides.md --pdf
 → `slides.html`, `slides.pdf`, a section-coloured progress bar, and a check that nothing
 ran off a slide or hid behind a callout box.
 
-![Six slides from the starter deck: title, two columns with a takeaway, a bar chart, a table, a draw.io diagram, and stat boxes](docs/images/gallery-starter.png)
+![Nine slides of the starter deck in order — cover, agenda, chart, two columns, section divider, diagram, table, stat boxes, closing — with the progress bar filling up along the bottom edge](docs/images/gallery-starter.png)
 
 ## What you get
 
 - **Theme** — Innopolis green, Tahoma, 5 layouts (title, content, columns, divider,
-  closing), 4 density tiers, cards, takeaways, stat boxes, and a 4 px progress bar
-  coloured per section.
+  closing), cards, takeaways and stat boxes.
+- **Density tiers** — `dense`, default, `large`, `xl`: body text from 20 to 32 px while
+  titles stay put. `xl` makes a deck readable in a video window.
+- **Progress bar** — a 4 px line along the bottom of every slide, one colour per
+  section. It **accumulates**: finished sections keep their colour, so the audience sees
+  how far in they are and how many sections are behind them.
 - **Diagrams** — write Mermaid, get an editable draw.io file and an on-brand SVG.
 - **Charts** — Vega-Lite templates that match the slide typography.
 - **Outputs** — HTML, PDF, image PPTX with notes, editable PPTX via LibreOffice.
@@ -45,19 +49,68 @@ ran off a slide or hid behind a callout box.
 - **Conventions** — for slide titles, writing, and the `media/` folder, so decks stay
   editable by whoever picks them up next.
 
-## Get started
+## What the skill does at each step
 
-1. **Install the tools** — [docs/user/installation.md](docs/user/installation.md)
-   (Node + Marp CLI, Python, draw.io Desktop, Vega-Lite; optional Mermaid CLI and
-   LibreOffice).
-2. **Install the skill** into your decks repository:
-   ```bash
-   git clone https://github.com/agilebotanist/inno-marp .claude/skills/inno-marp
-   python .claude/skills/inno-marp/scripts/doctor.py
-   ```
-3. **Set up the VS Code preview** — [docs/user/vscode-preview.md](docs/user/vscode-preview.md).
-4. **Copy the starter deck** — [examples/starter/](examples/starter/slides.md) — and follow
-   the [workflow](docs/user/workflow.md).
+Ask Claude for a deck and the skill loads itself. It then carries each step of the
+[workflow](docs/user/workflow.md) — the coloured strips are the progress-bar palette,
+one colour per step:
+
+![Seven steps — plan, draft, media, build, check, review, share — each with what the skill provides and the script or skill that does it; a dashed arrow loops from review back to draft](docs/images/skill-features.png)
+
+Things to say to it:
+
+- *"Plan a 45-minute deck on code review for an online audience."*
+- *"Draw the review flow as a diagram"* · *"Chart these numbers as a bar chart."*
+- *"Build the PDF and check nothing overflows."*
+- *"Review the slide titles with the minto skill."*
+- *"Give me an editable PowerPoint of it."*
+
+## Install with Claude Code
+
+**1. Clone the skill** where Claude Code looks for skills — for all your projects:
+
+```bash
+git clone https://github.com/agilebotanist/inno-marp ~/.claude/skills/inno-marp
+```
+
+```powershell
+# Windows PowerShell
+git clone https://github.com/agilebotanist/inno-marp "$env:USERPROFILE\.claude\skills\inno-marp"
+```
+
+…or for one decks repository only (this is also what makes the
+[VS Code preview](docs/user/vscode-preview.md) work):
+
+```bash
+git clone https://github.com/agilebotanist/inno-marp .claude/skills/inno-marp
+```
+
+**2. Start Claude Code** in your decks folder and check the skill is there:
+
+```bash
+claude
+> /inno-marp
+```
+
+**3. Let Claude set up the rest.** Ask it:
+
+> *Run the inno-marp doctor script and install whatever it reports missing.*
+
+`scripts/doctor.py` lists Marp CLI, draw.io Desktop, Vega-Lite, Mermaid CLI, LibreOffice
+and the Python packages; Claude can install them with your package manager (scoop,
+winget, brew, apt, npm, pip) and re-run the doctor until everything is green. The manual
+route, per OS, is in [docs/user/installation.md](docs/user/installation.md).
+
+Or skip step 1, too — hand Claude the URL:
+
+> *Install the skill from https://github.com/agilebotanist/inno-marp into my user skills
+> folder, then run its doctor.*
+
+**Update** later with `git -C ~/.claude/skills/inno-marp pull`.
+
+Without Claude Code everything still works: the theme, scripts and docs are plain files
+— install the tools, copy [examples/starter/](examples/starter/slides.md), and build
+with `python scripts/build-deck.py slides.md --pdf`.
 
 Recommended companions:
 
