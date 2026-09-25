@@ -94,7 +94,9 @@ def main() -> None:
     if leftover:
         sys.exit(f"Unreplaced placeholders: {leftover}")
 
-    OUTPUT.write_text(css, encoding="utf-8")
+    # LF on every OS, matching .gitattributes — or a rebuild on Windows shows
+    # the whole 200 KB file as modified.
+    OUTPUT.write_text(css, encoding="utf-8", newline="\n")
     print(f"Wrote {OUTPUT.relative_to(ROOT)} ({len(css):,} chars, {len(css)/1024:.1f} KB)")
 
 

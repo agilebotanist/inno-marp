@@ -52,6 +52,17 @@ def soffice() -> str | None:
         return None
 
 
+def expected_theme() -> str:
+    """What build-theme.py would write right now, without writing it."""
+    spec = importlib.util.spec_from_file_location("bt", ROOT / "scripts" / "build-theme.py")
+    bt = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bt)
+    css = bt.TEMPLATE.read_text(encoding="utf-8")
+    for placeholder, fname in bt.BG_MAPPING.items():
+        css = css.replace(placeholder, bt.data_uri(bt.ASSETS / fname))
+    return css
+
+
 CHECKS = [
     # (label, required, how to find it, what it is for)
     ("node", True, lambda: shutil.which("node"), "runs marp, mmdc, vl2svg"),
@@ -91,12 +102,12 @@ def main() -> int:
         print(f"{mod:<10} {tag}{'' if ok else '— ' + purpose}")
 
     theme = ROOT / "themes" / "innopolis.css"
-    template = ROOT / "themes" / "innopolis.template.css"
     if not theme.exists():
         print("theme    MISSING   — run: python scripts/build-theme.py")
         missing += 1
-    elif theme.stat().st_mtime < template.stat().st_mtime:
-        print("theme    STALE     — template is newer; run: python scripts/build-theme.py")
+    elif theme.read_text(encoding="utf-8") != expected_theme():
+        # Compare content, not mtimes: a fresh clone gets checkout-order mtimes.
+        print("theme    STALE     — differs from the template; run: python scripts/build-theme.py")
     else:
         print(f"theme    OK        {theme.stat().st_size / 1024:.0f} KB")
 
